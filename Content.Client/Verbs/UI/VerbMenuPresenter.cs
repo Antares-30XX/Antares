@@ -32,7 +32,7 @@ namespace Content.Client.Verbs.UI
         public EntityUid CurrentTarget;
         public Dictionary<VerbType, SortedSet<Verb>> CurrentVerbs = new();
 
-        public VerbMenuPresenter(VerbSystem verbSystem) : base()
+        public VerbMenuPresenter(VerbSystem verbSystem)
         {
             IoCManager.InjectDependencies(this);
             _verbSystem = verbSystem;
@@ -41,18 +41,19 @@ namespace Content.Client.Verbs.UI
         /// <summary>
         ///     Open a verb menu and fill it work verbs applicable to the given target entity.
         /// </summary>
-        public void OpenVerbMenu(IEntity target)
+        /// <param name="target">Entity to get verbs on.</param>
+        /// <param name="force">Used to force showing all verbs (mostly for admins).</param>
+        public void OpenVerbMenu(EntityUid target, bool force = false)
         {
-            var user = _playerManager.LocalPlayer?.ControlledEntity;
-            if (user == null)
+            if (_playerManager.LocalPlayer?.ControlledEntity is not {Valid: true} user)
                 return;
 
             Close();
 
-            CurrentTarget = target.Uid;
-            CurrentVerbs = _verbSystem.GetVerbs(target, user, VerbType.All);
-            
-            if (!target.Uid.IsClientSide())
+            CurrentTarget = target;
+            CurrentVerbs = _verbSystem.GetVerbs(target, user, VerbType.All, force);
+
+            if (!target.IsClientSide())
             {
                 AddElement(RootMenu, new ContextMenuElement(Loc.GetString("verb-system-waiting-on-server-text")));
             }

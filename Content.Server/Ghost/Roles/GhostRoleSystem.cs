@@ -4,19 +4,23 @@ using Content.Server.EUI;
 using Content.Server.Ghost.Components;
 using Content.Server.Ghost.Roles.Components;
 using Content.Server.Ghost.Roles.UI;
+using Content.Server.Mind.Components;
+using Content.Server.MobState.States;
 using Content.Server.Players;
+using Content.Shared.Administration;
 using Content.Shared.GameTicking;
-using Content.Shared.Ghost.Roles;
 using Content.Shared.Ghost;
+using Content.Shared.Ghost.Roles;
+using Content.Shared.MobState;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
 using Robust.Shared.Console;
+using Robust.Shared.Enums;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
-using Robust.Shared.ViewVariables;
 using Robust.Shared.Utility;
-using Robust.Shared.Enums;
+using Robust.Shared.ViewVariables;
 
 namespace Content.Server.Ghost.Roles
 {
@@ -41,8 +45,27 @@ namespace Content.Server.Ghost.Roles
 
             SubscribeLocalEvent<RoundRestartCleanupEvent>(Reset);
             SubscribeLocalEvent<PlayerAttachedEvent>(OnPlayerAttached);
+            SubscribeLocalEvent<GhostTakeoverAvailableComponent, MindRemovedMessage>(OnMindRemoved);
+            SubscribeLocalEvent<GhostTakeoverAvailableComponent, MobStateChangedEvent>(OnMobStateChanged);
 
             _playerManager.PlayerStatusChanged += PlayerStatusChanged;
+        }
+
+        private void OnMobStateChanged(EntityUid uid, GhostRoleComponent component, MobStateChangedEvent args)
+        {
+            switch (args.CurrentMobState)
+            {
+                case NormalMobState:
+                {
+                    if (!component.Taken)
+                        RegisterGhostRole(component);
+                    break;
+                }
+                case CriticalMobState:
+                case DeadMobState:
+                    UnregisterGhostRole(component);
+                    break;
+            }
         }
 
         public override void Shutdown()
@@ -59,7 +82,8 @@ namespace Content.Server.Ghost.Roles
 
         public void OpenEui(IPlayerSession session)
         {
-            if (session.AttachedEntity == null || !session.AttachedEntity.HasComponent<GhostComponent>())
+            if (session.AttachedEntity is not {Valid: true} attached ||
+                !EntityManager.HasComponent<GhostComponent>(attached))
                 return;
 
             if(_openUis.ContainsKey(session))
@@ -194,8 +218,16 @@ namespace Content.Server.Ghost.Roles
         {
             // Close the session of any player that has a ghost roles window open and isn't a ghost anymore.
             if (!_openUis.ContainsKey(message.Player)) return;
-            if (message.Entity.HasComponent<GhostComponent>()) return;
+            if (EntityManager.HasComponent<GhostComponent>(message.Entity)) return;
             CloseEui(message.Player);
+        }
+
+        private void OnMindRemoved(EntityUid uid, GhostRoleComponent component, MindRemovedMessage args)
+        {
+            if (!component.ReregisterOnGhost)
+                return;
+            component.Taken = false;
+            RegisterGhostRole(component);
         }
 
         public void Reset(RoundRestartCleanupEvent ev)

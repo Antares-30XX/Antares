@@ -13,6 +13,13 @@ namespace Content.Client.Light
     {
         [Dependency] private IGameTiming _gameTiming = default!;
 
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            UpdatesOutsidePrediction = true;
+        }
+
         public override void Update(float frameTime)
         {
             base.Update(frameTime);
@@ -27,7 +34,7 @@ namespace Content.Client.Light
         public static Color GetCurrentRgbColor(TimeSpan curTime, TimeSpan offset, RgbLightControllerComponent rgb)
         {
             return Color.FromHsv(new Vector4(
-                (float) (((curTime.TotalSeconds - offset.TotalSeconds) / rgb.CycleRate + Math.Abs(rgb.Owner.Uid.GetHashCode() * 0.1)) % 1),
+                (float) (((curTime.TotalSeconds - offset.TotalSeconds) / rgb.CycleRate + Math.Abs(rgb.Owner.GetHashCode() * 0.1)) % 1),
                 1.0f,
                 1.0f,
                 1.0f

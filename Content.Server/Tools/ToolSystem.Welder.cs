@@ -3,13 +3,13 @@ using System.Linq;
 using Content.Server.Chemistry.Components;
 using Content.Server.Chemistry.Components.SolutionManager;
 using Content.Server.Chemistry.EntitySystems;
-using Content.Server.Items;
 using Content.Server.Tools.Components;
+using Content.Server.Weapon.Melee;
 using Content.Shared.Audio;
-using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
+using Content.Shared.Item;
 using Content.Shared.Popups;
 using Content.Shared.Temperature;
 using Content.Shared.Tools.Components;
@@ -42,6 +42,13 @@ namespace Content.Server.Tools
             SubscribeLocalEvent<WelderComponent, ToolUseFinishAttemptEvent>(OnWelderToolUseFinishAttempt);
             SubscribeLocalEvent<WelderComponent, ComponentShutdown>(OnWelderShutdown);
             SubscribeLocalEvent<WelderComponent, ComponentGetState>(OnWelderGetState);
+            SubscribeLocalEvent<WelderComponent, MeleeHitEvent>(OnMeleeHit);
+        }
+
+        private void OnMeleeHit(EntityUid uid, WelderComponent component, MeleeHitEvent args)
+        {
+            if (!args.Handled && component.Lit)
+                args.BonusDamage += component.LitMeleeDamageBonus;
         }
 
         public (FixedPoint2 fuel, FixedPoint2 capacity) GetWelderFuelAndCapacity(EntityUid uid, WelderComponent? welder = null, SolutionContainerManagerComponent? solutionContainer = null)
@@ -56,7 +63,7 @@ namespace Content.Server.Tools
         public bool TryToggleWelder(EntityUid uid, EntityUid? user,
             WelderComponent? welder = null,
             SolutionContainerManagerComponent? solutionContainer = null,
-            ItemComponent? item = null,
+            SharedItemComponent? item = null,
             PointLightComponent? light = null,
             SpriteComponent? sprite = null)
         {
@@ -73,7 +80,7 @@ namespace Content.Server.Tools
         public bool TryTurnWelderOn(EntityUid uid, EntityUid? user,
             WelderComponent? welder = null,
             SolutionContainerManagerComponent? solutionContainer = null,
-            ItemComponent? item = null,
+            SharedItemComponent? item = null,
             PointLightComponent? light = null,
             SpriteComponent? sprite = null)
         {
@@ -114,7 +121,7 @@ namespace Content.Server.Tools
             SoundSystem.Play(Filter.Pvs(uid), welder.WelderOnSounds.GetSound(), uid, AudioHelpers.WithVariation(0.125f).WithVolume(-5f));
 
             // TODO: Use TransformComponent directly.
-            _atmosphereSystem.HotspotExpose(welder.Owner.Transform.Coordinates, 700, 50, true);
+            _atmosphereSystem.HotspotExpose(EntityManager.GetComponent<TransformComponent>(welder.Owner).Coordinates, 700, 50, true);
 
             welder.Dirty();
 
@@ -124,7 +131,7 @@ namespace Content.Server.Tools
 
         public bool TryTurnWelderOff(EntityUid uid, EntityUid? user,
             WelderComponent? welder = null,
-            ItemComponent? item = null,
+            SharedItemComponent? item = null,
             PointLightComponent? light = null,
             SpriteComponent? sprite = null)
         {
@@ -196,7 +203,7 @@ namespace Content.Server.Tools
 
         private void OnWelderActivate(EntityUid uid, WelderComponent welder, ActivateInWorldEvent args)
         {
-            args.Handled = TryToggleWelder(uid, args.User.Uid, welder);
+            args.Handled = TryToggleWelder(uid, args.User, welder);
         }
 
         private void OnWelderAfterInteract(EntityUid uid, WelderComponent welder, AfterInteractEvent args)
@@ -204,27 +211,27 @@ namespace Content.Server.Tools
             if (args.Handled)
                 return;
 
-            if (args.Target == null || !args.CanReach)
+            if (args.Target is not {Valid: true} target || !args.CanReach)
                 return;
 
             // TODO: Clean up this inherited oldcode.
 
-            if (args.Target.TryGetComponent(out ReagentTankComponent? tank)
+            if (EntityManager.TryGetComponent(target, out ReagentTankComponent? tank)
                 && tank.TankType == ReagentTankType.Fuel
-                && _solutionContainerSystem.TryGetDrainableSolution(args.Target.Uid, out var targetSolution)
+                && _solutionContainerSystem.TryGetDrainableSolution(target, out var targetSolution)
                 && _solutionContainerSystem.TryGetSolution(uid, welder.FuelSolution, out var welderSolution))
             {
                 var trans = FixedPoint2.Min(welderSolution.AvailableVolume, targetSolution.DrainAvailable);
                 if (trans > 0)
                 {
-                    var drained = _solutionContainerSystem.Drain(args.Target.Uid, targetSolution,  trans);
+                    var drained = _solutionContainerSystem.Drain(target, targetSolution,  trans);
                     _solutionContainerSystem.TryAddSolution(uid, welderSolution, drained);
                     SoundSystem.Play(Filter.Pvs(uid), welder.WelderRefill.GetSound(), uid);
-                    args.Target.PopupMessage(args.User, Loc.GetString("welder-component-after-interact-refueled-message"));
+                    target.PopupMessage(args.User, Loc.GetString("welder-component-after-interact-refueled-message"));
                 }
                 else
                 {
-                    args.Target.PopupMessage(args.User, Loc.GetString("welder-component-no-fuel-in-tank", ("owner", args.Target)));
+                    target.PopupMessage(args.User, Loc.GetString("welder-component-no-fuel-in-tank", ("owner", args.Target)));
                 }
             }
 
@@ -233,7 +240,7 @@ namespace Content.Server.Tools
 
         private void OnWelderUseInHand(EntityUid uid, WelderComponent welder, UseInHandEvent args)
         {
-            args.Handled = TryToggleWelder(uid, args.User.Uid, welder);
+            args.Handled = TryToggleWelder(uid, args.User, welder);
         }
 
         private void OnWelderToolUseAttempt(EntityUid uid, WelderComponent welder, ToolUseAttemptEvent args)
@@ -317,7 +324,7 @@ namespace Content.Server.Tools
                     continue;
 
                 // TODO: Use TransformComponent directly.
-                _atmosphereSystem.HotspotExpose(welder.Owner.Transform.Coordinates, 700, 50, true);
+                _atmosphereSystem.HotspotExpose(EntityManager.GetComponent<TransformComponent>(welder.Owner).Coordinates, 700, 50, true);
 
                 solution.RemoveReagent(welder.FuelReagent, welder.FuelConsumption * _welderTimer);
 

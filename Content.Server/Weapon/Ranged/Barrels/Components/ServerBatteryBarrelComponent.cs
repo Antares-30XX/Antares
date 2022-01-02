@@ -6,9 +6,13 @@ using Content.Shared.Weapons.Ranged.Barrels.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.GameObjects;
 using Robust.Shared.GameStates;
+using Robust.Shared.IoC;
 using Robust.Shared.Map;
+using Robust.Shared.Player;
 using Robust.Shared.Players;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager.Attributes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.ViewVariables;
 
 namespace Content.Server.Weapon.Ranged.Barrels.Components
@@ -17,6 +21,8 @@ namespace Content.Server.Weapon.Ranged.Barrels.Components
     [NetworkedComponent()]
     public sealed class ServerBatteryBarrelComponent : ServerRangedBarrelComponent
     {
+        [Dependency] private readonly IEntityManager _entities = default!;
+
         public override string Name => "BatteryBarrel";
 
         [DataField("cellSlot", required: true)]
@@ -28,24 +34,22 @@ namespace Content.Server.Weapon.Ranged.Barrels.Components
         [DataField("fireCost")]
         [ViewVariables] private int _baseFireCost = 300;
         // What gets fired
-        [DataField("ammoPrototype")]
+        [DataField("ammoPrototype", customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
         [ViewVariables] private string? _ammoPrototype;
 
-        public BatteryComponent? PowerCell => CellSlot.Item?.GetComponentOrNull<BatteryComponent>();
+        public BatteryComponent? PowerCell => _entities.GetComponentOrNull<BatteryComponent>(CellSlot.Item);
         private ContainerSlot _ammoContainer = default!;
 
         public override int ShotsLeft
         {
             get
             {
-                var powerCell = CellSlot.Item;
-
-                if (powerCell == null)
+                if (CellSlot.Item is not {} powerCell)
                 {
                     return 0;
                 }
 
-                return (int) Math.Ceiling(powerCell.GetComponent<BatteryComponent>().CurrentCharge / _baseFireCost);
+                return (int) Math.Ceiling(_entities.GetComponent<BatteryComponent>(powerCell).CurrentCharge / _baseFireCost);
             }
         }
 
@@ -53,14 +57,12 @@ namespace Content.Server.Weapon.Ranged.Barrels.Components
         {
             get
             {
-                var powerCell = CellSlot.Item;
-
-                if (powerCell == null)
+                if (CellSlot.Item is not {} powerCell)
                 {
                     return 0;
                 }
 
-                return (int) Math.Ceiling((float) (powerCell.GetComponent<BatteryComponent>().MaxCharge / _baseFireCost));
+                return (int) Math.Ceiling(_entities.GetComponent<BatteryComponent>(powerCell).MaxCharge / _baseFireCost);
             }
         }
 
@@ -78,14 +80,15 @@ namespace Content.Server.Weapon.Ranged.Barrels.Components
         protected override void Initialize()
         {
             base.Initialize();
-            EntitySystem.Get<ItemSlotsSystem>().AddItemSlot(OwnerUid, $"{Name}-powercell-container", CellSlot);
+
+            EntitySystem.Get<ItemSlotsSystem>().AddItemSlot(Owner, $"{Name}-powercell-container", CellSlot);
 
             if (_ammoPrototype != null)
             {
-                _ammoContainer = ContainerHelpers.EnsureContainer<ContainerSlot>(Owner, $"{Name}-ammo-container");
+                _ammoContainer = Owner.EnsureContainer<ContainerSlot>($"{Name}-ammo-container");
             }
 
-            if (Owner.TryGetComponent(out AppearanceComponent? appearanceComponent))
+            if (_entities.TryGetComponent(Owner, out AppearanceComponent? appearanceComponent))
             {
                 _appearanceComponent = appearanceComponent;
             }
@@ -95,7 +98,7 @@ namespace Content.Server.Weapon.Ranged.Barrels.Components
         protected override void OnRemove()
         {
             base.OnRemove();
-            EntitySystem.Get<ItemSlotsSystem>().RemoveItemSlot(OwnerUid, CellSlot);
+            EntitySystem.Get<ItemSlotsSystem>().RemoveItemSlot(Owner, CellSlot);
         }
 
         protected override void Startup()
@@ -112,21 +115,21 @@ namespace Content.Server.Weapon.Ranged.Barrels.Components
             Dirty();
         }
 
-        public override IEntity PeekAmmo()
+        public override EntityUid? PeekAmmo()
         {
             // Spawn a dummy entity because it's easier to work with I guess
             // This will get re-used for the projectile
             var ammo = _ammoContainer.ContainedEntity;
             if (ammo == null)
             {
-                ammo = Owner.EntityManager.SpawnEntity(_ammoPrototype, Owner.Transform.Coordinates);
-                _ammoContainer.Insert(ammo);
+                ammo = _entities.SpawnEntity(_ammoPrototype, _entities.GetComponent<TransformComponent>(Owner).Coordinates);
+                _ammoContainer.Insert(ammo.Value);
             }
 
-            return ammo;
+            return ammo.Value;
         }
 
-        public override IEntity? TakeProjectile(EntityCoordinates spawnAt)
+        public override EntityUid? TakeProjectile(EntityCoordinates spawnAt)
         {
             var powerCellEntity = CellSlot.Item;
 
@@ -135,7 +138,7 @@ namespace Content.Server.Weapon.Ranged.Barrels.Components
                 return null;
             }
 
-            var capacitor = powerCellEntity.GetComponent<BatteryComponent>();
+            var capacitor = _entities.GetComponent<BatteryComponent>(powerCellEntity.Value);
             if (capacitor.CurrentCharge < _lowerChargeLimit)
             {
                 return null;
@@ -143,7 +146,7 @@ namespace Content.Server.Weapon.Ranged.Barrels.Components
 
             // Can fire confirmed
             // Multiply the entity's damage / whatever by the percentage of charge the shot has.
-            IEntity entity;
+            EntityUid? entity;
             var chargeChange = Math.Min(capacitor.CurrentCharge, _baseFireCost);
             if (capacitor.UseCharge(chargeChange) < _lowerChargeLimit)
             {
@@ -155,21 +158,21 @@ namespace Content.Server.Weapon.Ranged.Barrels.Components
             if (_ammoContainer.ContainedEntity != null)
             {
                 entity = _ammoContainer.ContainedEntity;
-                _ammoContainer.Remove(entity);
-                entity.Transform.Coordinates = spawnAt;
+                _ammoContainer.Remove(entity.Value);
+                _entities.GetComponent<TransformComponent>(entity.Value).Coordinates = spawnAt;
             }
             else
             {
-                entity = Owner.EntityManager.SpawnEntity(_ammoPrototype, spawnAt);
+                entity = _entities.SpawnEntity(_ammoPrototype, spawnAt);
             }
 
-            if (entity.TryGetComponent(out ProjectileComponent? projectileComponent))
+            if (_entities.TryGetComponent(entity.Value, out ProjectileComponent? projectileComponent))
             {
                 if (energyRatio < 1.0)
                 {
                     projectileComponent.Damage *= energyRatio;
                 }
-            } else if (entity.TryGetComponent(out HitscanComponent? hitscanComponent))
+            } else if (_entities.TryGetComponent(entity.Value, out HitscanComponent? hitscanComponent))
             {
                 hitscanComponent.Damage *= energyRatio;
                 hitscanComponent.ColorModifier = energyRatio;
@@ -181,7 +184,7 @@ namespace Content.Server.Weapon.Ranged.Barrels.Components
 
             Dirty();
             UpdateAppearance();
-            return entity;
+            return entity.Value;
         }
     }
 }

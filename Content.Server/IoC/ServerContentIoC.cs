@@ -11,6 +11,7 @@ using Content.Server.DeviceNetwork;
 using Content.Server.EUI;
 using Content.Server.Holiday;
 using Content.Server.Holiday.Interfaces;
+using Content.Server.Info;
 using Content.Server.Maps;
 using Content.Server.Module;
 using Content.Server.MoMMI;
@@ -22,6 +23,7 @@ using Content.Server.Sandbox;
 using Content.Server.Speech;
 using Content.Server.Voting.Managers;
 using Content.Shared.Actions;
+using Content.Shared.Administration;
 using Content.Shared.Alert;
 using Content.Shared.Kitchen;
 using Content.Shared.Module;
@@ -55,6 +57,8 @@ namespace Content.Server.IoC
             IoCManager.Register<IPlayerLocator, PlayerLocator>();
             IoCManager.Register<IAfkManager, AfkManager>();
             IoCManager.Register<IGameMapManager, GameMapManager>();
+            IoCManager.Register<IGamePrototypeLoadManager, GamePrototypeLoadManager>();
+            IoCManager.Register<RulesManager, RulesManager>();
         }
     }
 }

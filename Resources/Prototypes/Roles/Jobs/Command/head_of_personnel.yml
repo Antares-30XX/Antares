@@ -18,16 +18,19 @@
   - Maintenance
   - Janitor
   - Theatre
+  - Kitchen
+  - Chapel
+  - Hydroponics
   # I mean they'll give themselves the rest of the access levels *anyways*.
 
 - type: startingGear
   id: HoPGear
   equipment:
-    innerclothing: ClothingUniformJumpsuitHoP
-    backpack: ClothingBackpackFilled
+    jumpsuit: ClothingUniformJumpsuitHoP
+    back: ClothingBackpackFilled
     shoes: ClothingShoesColorBrown
     head: ClothingHeadHatHopcap
-    idcard: HoPPDA
+    id: HoPPDA
     ears: ClothingHeadsetAltCommand
   innerclothingskirt: ClothingUniformJumpskirtHoP
   satchel: ClothingBackpackSatchelFilled

@@ -11,6 +11,7 @@ using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
+using Content.Shared.Temperature;
 using Content.Shared.Shuttles.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.GameObjects;
@@ -52,7 +53,7 @@ namespace Content.Server.Shuttles.EntitySystems
             SubscribeLocalEvent<ThrusterComponent, PowerChangedEvent>(OnPowerChange);
             SubscribeLocalEvent<ThrusterComponent, AnchorStateChangedEvent>(OnAnchorChange);
             SubscribeLocalEvent<ThrusterComponent, RotateEvent>(OnRotate);
-
+            SubscribeLocalEvent<ThrusterComponent, IsHotEvent>(OnIsHotEvent);
             SubscribeLocalEvent<ThrusterComponent, StartCollideEvent>(OnStartCollide);
             SubscribeLocalEvent<ThrusterComponent, EndCollideEvent>(OnEndCollide);
 
@@ -93,6 +94,11 @@ namespace Content.Server.Shuttles.EntitySystems
         {
             base.Shutdown();
             _mapManager.TileChanged -= OnTileChange;
+        }
+
+        private void OnIsHotEvent(EntityUid uid, ThrusterComponent component, IsHotEvent args)
+        {
+            args.IsHot = component.Type != ThrusterType.Angular && component.IsOn;
         }
 
         private void OnTileChange(object? sender, TileChangedEventArgs e)
@@ -397,14 +403,14 @@ namespace Content.Server.Shuttles.EntitySystems
             if (args.OurFixture.ID != BurnFixture) return;
 
             _activeThrusters.Add(component);
-            component.Colliding.Add(args.OtherFixture.Body.OwnerUid);
+            component.Colliding.Add((args.OtherFixture.Body).Owner);
         }
 
         private void OnEndCollide(EntityUid uid, ThrusterComponent component, EndCollideEvent args)
         {
             if (args.OurFixture.ID != BurnFixture) return;
 
-            component.Colliding.Remove(args.OtherFixture.Body.OwnerUid);
+            component.Colliding.Remove((args.OtherFixture.Body).Owner);
 
             if (component.Colliding.Count == 0)
             {
@@ -425,7 +431,7 @@ namespace Content.Server.Shuttles.EntitySystems
 
             foreach (var comp in component.LinearThrusters[index])
             {
-                if (!EntityManager.TryGetComponent(comp.OwnerUid, out AppearanceComponent? appearanceComponent))
+                if (!EntityManager.TryGetComponent((comp).Owner, out AppearanceComponent? appearanceComponent))
                     continue;
 
                 comp.Firing = true;
@@ -446,7 +452,7 @@ namespace Content.Server.Shuttles.EntitySystems
 
             foreach (var comp in component.LinearThrusters[index])
             {
-                if (!EntityManager.TryGetComponent(comp.OwnerUid, out AppearanceComponent? appearanceComponent))
+                if (!EntityManager.TryGetComponent((comp).Owner, out AppearanceComponent? appearanceComponent))
                     continue;
 
                 comp.Firing = false;
@@ -470,7 +476,7 @@ namespace Content.Server.Shuttles.EntitySystems
             {
                 foreach (var comp in component.AngularThrusters)
                 {
-                    if (!EntityManager.TryGetComponent(comp.OwnerUid, out AppearanceComponent? appearanceComponent))
+                    if (!EntityManager.TryGetComponent((comp).Owner, out AppearanceComponent? appearanceComponent))
                         continue;
 
                     comp.Firing = true;
@@ -481,7 +487,7 @@ namespace Content.Server.Shuttles.EntitySystems
             {
                 foreach (var comp in component.AngularThrusters)
                 {
-                    if (!EntityManager.TryGetComponent(comp.OwnerUid, out AppearanceComponent? appearanceComponent))
+                    if (!EntityManager.TryGetComponent((comp).Owner, out AppearanceComponent? appearanceComponent))
                         continue;
 
                     comp.Firing = false;
