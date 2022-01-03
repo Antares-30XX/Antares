@@ -1,7 +1,7 @@
 - type: cargoProduct
   name: "janitorial supplies crate"
   id: ServiceJanitorial
-  description: "Fight back against dirt and grime with Nanotrasen's Janitorial Essentials(tm)! Contains three buckets, caution signs, a single mop and bucket, spray cleaner, and soap."
+  description: "Fight back against dirt and grime with Antares's Janitorial Essentials(tm)! Contains three buckets, caution signs, a single mop and bucket, spray cleaner, and soap."
   icon:
     sprite: Objects/Specific/Janitorial/janitorial.rsi
     state: cleaner

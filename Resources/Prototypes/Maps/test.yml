@@ -14,7 +14,7 @@
   mapName: 'funny knightship'
   mapNameTemplate: '{0} funny knight {1}'
   nameGenerator:
-    !type:NanotrasenNameGenerator
+    !type:AntaresNameGenerator
     prefixCreator: '14'
   mapPath: Maps/knightship.yml
   minPlayers: 0

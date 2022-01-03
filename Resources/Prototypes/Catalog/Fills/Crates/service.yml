@@ -1,7 +1,7 @@
 - type: entity
   id: CrateServiceJanitorialSupplies
   name: janitorial supplies crate
-  description: Fight back against dirt and grime with Nanotrasen's Janitorial Essentials(tm)! Contains three buckets, caution signs, and cleaner grenades. Also has a single mop, broom, spray cleaner, rag, and trash bag.
+  description: Fight back against dirt and grime with Antares's Janitorial Essentials(tm)! Contains three buckets, caution signs, and cleaner grenades. Also has a single mop, broom, spray cleaner, rag, and trash bag.
   parent: CratePlastic
   components:
   - type: StorageFill

@@ -6,14 +6,14 @@ using Robust.Shared.Serialization.Manager.Attributes;
 namespace Content.Server.Maps.NameGenerators;
 
 [UsedImplicitly]
-public class NanotrasenNameGenerator : GameMapNameGenerator
+public class AntaresNameGenerator : GameMapNameGenerator
 {
     /// <summary>
     ///     Where the map comes from. Should be a two or three letter code, for example "VG" for Packedstation.
     /// </summary>
     [DataField("prefixCreator")] public string PrefixCreator = default!;
 
-    private string Prefix => "NT";
+    private string Prefix => "AS";
     private string[] SuffixCodes => new []{ "LV", "NX", "EV", "QT", "PR" };
 
     public override string FormatName(string input)

@@ -17,7 +17,7 @@
     capacity: 100
     storageSoundCollection:
       collection: storageRustle
-    
+
 - type: entity
   parent: ClothingBackpackSatchel
   id: ClothingBackpackSatchelEngineering
@@ -77,7 +77,7 @@
   parent: ClothingBackpackSatchel
   id: ClothingBackpackSatchelCaptain
   name: captain's satchel
-  description: An exclusive satchel for Nanotrasen officers.
+  description: An exclusive satchel for Antares officers.
   components:
   - type: Sprite
     sprite: Clothing/Back/Satchels/captain.rsi

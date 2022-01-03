@@ -542,7 +542,7 @@ namespace Content.Client.Arcade
             List<BlockGameMessages.HighScoreEntry> globalHighscores)
         {
             var localHighscoreText = new StringBuilder(Loc.GetString("blockgame-menu-text-station") + "\n");
-            var globalHighscoreText = new StringBuilder(Loc.GetString("blockgame-menu-text-nanotrasen") + "\n");
+            var globalHighscoreText = new StringBuilder(Loc.GetString("blockgame-menu-text-antares") + "\n");
 
             for (var i = 0; i < 5; i++)
             {

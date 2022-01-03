@@ -54,7 +54,7 @@ namespace Content.Server.Cargo
         {
             SubscribeLocalEvent<RoundRestartCleanupEvent>(Reset);
 
-            CreateBankAccount("Space Station 14", 1000);
+            CreateBankAccount("Antares 30XX", 1000);
             CreateOrderDatabase(0);
         }
 

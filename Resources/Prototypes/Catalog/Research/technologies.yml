@@ -6,7 +6,7 @@
 - type: technology
   name: "basic research technology"
   id: BasicResearch
-  description: Nanotrasen basic research technologies.
+  description: Antares basic research technologies.
   icon:
     sprite: Structures/Machines/server.rsi
     state: server-on

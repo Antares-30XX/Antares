@@ -3,7 +3,7 @@
   mapName: 'Packedmasstation'
   mapNameTemplate: '{0} Packedmasstation {1}'
   nameGenerator:
-    !type:NanotrasenNameGenerator
+    !type:AntaresNameGenerator
     prefixCreator: 'VG'
   mapPath: Maps/packedstationxmas.yml
   minPlayers: 15

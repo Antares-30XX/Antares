@@ -26,7 +26,7 @@
   parent: ClothingHeadset
   id: ClothingHeadsetCentCom
   name: centcomm headset
-  description: A headset used by the upper echelons of Nanotrasen.
+  description: A headset used by the upper echelons of Antares.
   components:
   - type: Sprite
     sprite: Clothing/Ears/Headsets/centcom.rsi

@@ -20,7 +20,7 @@
       ejectOnUse: true
       insertSound: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg
       ejectSound: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
-      soundOptions: 
+      soundOptions:
         volume: -2
       startingItem: PowerCellSmallStandard
       whitelist:
@@ -108,7 +108,7 @@
   name: cog laser carbine
   parent: BatteryGunBase
   id: LaserRifleCog
-  description: Favoured by Nanotrasen Security for being cheap and easy to use.
+  description: Favoured by Antares Security for being cheap and easy to use.
   components:
   - type: Sprite
     netsync: false
@@ -152,7 +152,7 @@
       ejectOnUse: true
       insertSound: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg
       ejectSound: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
-      soundOptions: 
+      soundOptions:
         volume: -2
       startingItem: PowerCellSmallSuper
       whitelist:
@@ -186,7 +186,7 @@
       ejectOnUse: true
       insertSound: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg
       ejectSound: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
-      soundOptions: 
+      soundOptions:
         volume: -2
       startingItem: PowerCellSmallSuper
       whitelist:
@@ -234,7 +234,7 @@
     cellSlot:
       insertSound: /Audio/Weapons/Guns/MagIn/revolver_magin.ogg
       ejectSound: /Audio/Weapons/Guns/MagOut/revolver_magout.ogg
-      soundOptions: 
+      soundOptions:
         volume: -2
       locked: true
       startingItem: PowerCellSmallStandard

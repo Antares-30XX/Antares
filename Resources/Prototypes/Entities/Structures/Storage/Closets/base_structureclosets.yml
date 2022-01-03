@@ -2,7 +2,7 @@
   id: ClosetBase
   parent: BaseStructureDynamic
   name: closet
-  description: A standard-issue Nanotrasen storage unit.
+  description: A standard-issue Antares storage unit.
   components:
   - type: Transform
     noRot: true

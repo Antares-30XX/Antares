@@ -37,7 +37,7 @@ namespace Content.Client.Atmos.Overlays
             // 1. "Is this going to make a critical atmos debugging tool harder to debug itself?"
             // 2. "Is this going to do anything that could cause the atmos debugging tool to use resources, server-side or client-side, when nobody's using it?"
             // 3. "Is this going to make it harder for atmos programmers to add data that may not be chunk-friendly into the atmos debugger?"
-            // Nanotrasen needs YOU! to avoid premature optimization in critical debugging tools - 20kdc
+            // Antares needs YOU! to avoid premature optimization in critical debugging tools - 20kdc
 
             foreach (var mapGrid in _mapManager.FindGridsIntersecting(mapId, worldBounds))
             {
