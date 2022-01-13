@@ -1,0 +1,9 @@
+﻿- type: entity
+  parent: BayAirlockExternalBase
+  id: BayAirlockExternal
+  suffix: BayExternalR
+  components:
+  - type: Appearance
+    visuals:
+    - type: BayAirlockVisualizer
+      doorColor: '#9d2300ff'
