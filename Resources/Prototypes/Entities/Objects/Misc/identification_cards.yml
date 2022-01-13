@@ -21,14 +21,14 @@
 - type: entity
   parent: IDCardStandard
   id: AssistantIDCard
-  name: assistant ID card
+  name: stowaway ID card
   components:
   - type: Sprite
     layers:
     - state: default
     - state: idassistant
   - type: PresetIdCard
-    job: Assistant
+    job: Stowaway
 
 - type: entity
   parent: IDCardStandard
@@ -47,14 +47,14 @@
 - type: entity
   parent: IDCardStandard
   id: SecurityIDCard
-  name: security ID card
+  name: mercenary ID card
   components:
   - type: Sprite
     layers:
     - state: default
     - state: idsecurityofficer
   - type: PresetIdCard
-    job: SecurityOfficer
+    job: AntaresMercenary
 
 - type: entity
   parent: IDCardStandard
@@ -78,7 +78,7 @@
     - state: default
     - state: idstationengineer
   - type: PresetIdCard
-    job: StationEngineer
+    job: Mechanic
 
 - type: entity
   parent: IDCardStandard
@@ -90,31 +90,31 @@
     - state: default
     - state: idmedicaldoctor
   - type: PresetIdCard
-    job: MedicalDoctor
+    job: Practitioner
 
 - type: entity
   parent: IDCardStandard
   id: ChemistIDCard
-  name: chemist ID card
+  name: pharmacist ID card
   components:
   - type: Sprite
     layers:
     - state: default
     - state: idchemist
   - type: PresetIdCard
-    job: Chemist
+    job: Pharmacist
 
 - type: entity
   parent: IDCardStandard
   id: CargoIDCard
-  name: cargo ID card
+  name: warehouse ID card
   components:
   - type: Sprite
     layers:
     - state: default
     - state: idcargotechnician
   - type: PresetIdCard
-    job: CargoTechnician
+    job: WarehouseWorker
 
 - type: entity
   parent: IDCardStandard
@@ -138,7 +138,7 @@
     - state: default
     - state: idscientist
   - type: PresetIdCard
-    job: Scientist
+    job: Xenoarchaeologist
 
 - type: entity
   parent: IDCardStandard
@@ -167,14 +167,14 @@
 - type: entity
   parent: IDCardStandard
   id: ChaplainIDCard
-  name: chaplain ID card
+  name: preacher ID card
   components:
     - type: Sprite
       layers:
         - state: default
         - state: idchaplain
     - type: PresetIdCard
-      job: Chaplain
+      job: Preacher
 
 - type: entity
   parent: IDCardStandard
@@ -191,38 +191,26 @@
 - type: entity
   parent: IDCardStandard
   id: BartenderIDCard
-  name: bartender ID card
+  name: innkeeper ID card
   components:
   - type: Sprite
     layers:
     - state: default
     - state: idbartender
   - type: PresetIdCard
-    job: Bartender
-
-- type: entity
-  parent: IDCardStandard
-  id: ChefIDCard
-  name: chef ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: default
-    - state: idcook
-  - type: PresetIdCard
-    job: Chef
+    job: Innkeeper
 
 - type: entity
   parent: IDCardStandard
   id: BotanistIDCard
-  name: botanist ID card
+  name: hydroponicist ID card
   components:
     - type: Sprite
       layers:
         - state: default
         - state: idbotanist
     - type: PresetIdCard
-      job: Botanist
+      job: Hydroponicist
 
 - type: entity
   parent: IDCardStandard

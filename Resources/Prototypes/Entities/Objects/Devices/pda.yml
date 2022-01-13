@@ -60,21 +60,6 @@
 
 - type: entity
   parent: BasePDA
-  id: ChefPDA
-  name: chef PDA
-  description: Covered in grease and flour.
-  components:
-  - type: PDA
-    id: ChefIDCard
-  - type: Appearance
-    visuals:
-    - type: PDAVisualizer
-      state: pda-cook
-  - type: Icon
-    state: pda-cook
-
-- type: entity
-  parent: BasePDA
   id: BotanistPDA
   name: botanist PDA
   description: Has an earthy scent.

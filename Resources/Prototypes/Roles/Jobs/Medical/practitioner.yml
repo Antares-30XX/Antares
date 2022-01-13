@@ -1,6 +1,6 @@
 - type: job
-  id: MedicalDoctor
-  name: "medical doctor"
+  id: Practitioner
+  name: "practitioner"
   startingGear: DoctorGear
   departments:
   - Medical

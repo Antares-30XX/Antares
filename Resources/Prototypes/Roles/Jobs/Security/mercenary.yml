@@ -1,6 +1,6 @@
 - type: job
-  id: SecurityOfficer
-  name: "security officer"
+  id: AntaresMercenary
+  name: "mercenary"
   startingGear: SecurityOfficerGear
   departments:
   - Security

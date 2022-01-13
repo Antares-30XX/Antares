@@ -4,6 +4,7 @@ using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager.Attributes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.ViewVariables;
 
 namespace Content.Server.Spawners.Components
@@ -15,7 +16,7 @@ namespace Content.Server.Spawners.Components
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
         [ViewVariables(VVAccess.ReadWrite)]
-        [DataField("job_id")]
+        [DataField("job_id", customTypeSerializer:typeof(PrototypeIdSerializer<JobPrototype>))]
         private string? _jobId;
 
         [ViewVariables(VVAccess.ReadWrite)]

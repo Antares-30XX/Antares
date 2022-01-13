@@ -1,11 +1,11 @@
 - type: job
-  id: Chaplain
-  name: "chaplain"
+  id: Preacher
+  name: "preacher"
   startingGear: ChaplainGear
   departments:
   - Civilian
   icon: "Chaplain"
-  supervisors: "the head of personnel"
+  supervisors: "absolutely everyone"
   access:
   - Chapel
   - Maintenance

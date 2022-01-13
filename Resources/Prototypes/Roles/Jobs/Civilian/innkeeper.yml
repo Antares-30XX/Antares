@@ -1,11 +1,11 @@
 - type: job
-  id: Bartender
-  name: "bartender"
+  id: Innkeeper
+  name: "innkeeper"
   startingGear: BartenderGear
   departments:
   - Civilian
   icon: "Bartender"
-  supervisors: "the head of personnel"
+  supervisors: "your shotgun"
   access:
   - Service
   - Maintenance
