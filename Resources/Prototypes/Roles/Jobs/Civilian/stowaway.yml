@@ -1,6 +1,6 @@
 - type: job
-  id: Assistant
-  name: "assistant"
+  id: Stowaway
+  name: "stowaway"
   startingGear: AssistantGear
   departments:
   - Civilian

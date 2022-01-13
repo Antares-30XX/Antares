@@ -12,8 +12,8 @@ namespace Content.Shared.GameTicking
     {
         // See ideally these would be pulled from the job definition or something.
         // But this is easier, and at least it isn't hardcoded.
-        public const string FallbackOverflowJob = "Assistant";
-        public const string FallbackOverflowJobName = "assistant";
+        public const string FallbackOverflowJob = "Stowaway";
+        public const string FallbackOverflowJobName = "stowaway";
     }
 
     [Serializable, NetSerializable]

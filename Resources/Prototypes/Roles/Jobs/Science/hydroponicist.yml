@@ -1,11 +1,11 @@
 - type: job
-  id: Botanist
-  name: "botanist"
+  id: Hydroponicist
+  name: "hydroponicist"
   startingGear: BotanistGear
   departments:
   - Civilian
   icon: "Botanist"
-  supervisors: "the head of personnel"
+  supervisors: "the research director"
   access:
   - Service
   - Maintenance

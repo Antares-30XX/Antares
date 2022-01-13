@@ -1,0 +1,12 @@
+﻿- type: job
+  id: PowerTechnician
+  name: "power technician"
+  startingGear: StationEngineerGear
+  departments:
+  - Engineering
+  icon: "StationEngineer"
+  supervisors: "the chief engineer"
+  access:
+  - Maintenance
+  - Engineering
+  - External

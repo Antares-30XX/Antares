@@ -1,6 +1,6 @@
 - type: job
-  id: Scientist
-  name: "scientist"
+  id: Xenoarchaeologist
+  name: "xenoarchaeologist"
   startingGear: ScientistGear
   departments:
   - Science

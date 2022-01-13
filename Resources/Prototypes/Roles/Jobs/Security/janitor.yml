@@ -3,12 +3,13 @@
   name: "janitor"
   startingGear: JanitorGear
   departments:
-  - Civilian
+  - Security
   icon: "Janitor"
-  supervisors: "the head of personnel"
+  supervisors: "the head of security"
   access:
   - Janitor
   - Maintenance
+  - Security
   special:
   - !type:GiveItemOnHolidaySpecial
     holiday: GarbageDay

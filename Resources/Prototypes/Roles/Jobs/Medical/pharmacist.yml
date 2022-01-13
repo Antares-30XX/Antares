@@ -1,6 +1,6 @@
 - type: job
-  id: Chemist
-  name: "chemist"
+  id: Pharmacist
+  name: "pharmacist"
   startingGear: ChemistGear
   departments:
   - Medical

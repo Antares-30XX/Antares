@@ -36,23 +36,23 @@
 
 # Cargo
 
-#- type: entity
-#  id: SpawnPointQuartermaster
-#  parent: SpawnPointJobBase
-#  name: quartermaster
-#  components:
-#    - type: SpawnPoint
-#      job_id: Quartermaster
-#    - type: Sprite
-#      state: Quartermaster
+- type: entity
+  id: SpawnPointQuartermaster
+  parent: SpawnPointJobBase
+  name: quartermaster
+  components:
+    - type: SpawnPoint
+      job_id: Quartermaster
+    - type: Sprite
+      state: cargo_tech
 
 - type: entity
   id: SpawnPointCargoTechnician
   parent: SpawnPointJobBase
-  name: cargotechnician
+  name: warehouse worker
   components:
   - type: SpawnPoint
-    job_id: CargoTechnician
+    job_id: WarehouseWorker
   - type: Sprite
     layers:
       - state: green
@@ -63,10 +63,10 @@
 - type: entity
   id: SpawnPointAssistant
   parent: SpawnPointJobBase
-  name: assistant
+  name: stowaway
   components:
   - type: SpawnPoint
-    job_id: Assistant
+    job_id: Stowaway
   - type: Sprite
     layers:
       - state: green
@@ -75,34 +75,22 @@
 - type: entity
   id: SpawnPointBartender
   parent: SpawnPointJobBase
-  name: bartender
+  name: innkeeper
   components:
   - type: SpawnPoint
-    job_id: Bartender
+    job_id: Innkeeper
   - type: Sprite
     layers:
       - state: green
       - state: bartender
 
 - type: entity
-  id: SpawnPointChef
-  parent: SpawnPointJobBase
-  name: chef
-  components:
-  - type: SpawnPoint
-    job_id: Chef
-  - type: Sprite
-    layers:
-      - state: green
-      - state: chef
-
-- type: entity
   id: SpawnPointBotanist
   parent: SpawnPointJobBase
-  name: botanist
+  name: hydroponicist
   components:
   - type: SpawnPoint
-    job_id: Botanist
+    job_id: Hydroponicist
   - type: Sprite
     layers:
       - state: green
@@ -121,26 +109,14 @@
       - state: clown
 
 - type: entity
-  id: SpawnPointMime
+  id: SpawnPointChaplain
   parent: SpawnPointJobBase
-  name: mime
+  name: preacher
   components:
-  - type: SpawnPoint
-    job_id: Mime
-  - type: Sprite
-    layers:
-      - state: green
-      - state: mime
-
-#- type: entity
-#  id: SpawnPointChaplain
-#  parent: SpawnPointJobBase
-#  name: chaplain
-#  components:
-#    - type: SpawnPoint
-#      job_id: Chaplain
-#    - type: Sprite
-#      state: Chaplain
+    - type: SpawnPoint
+      job_id: Preacher
+    - type: Sprite
+      state: chaplain
 
 - type: entity
   id: SpawnPointJanitor
@@ -197,14 +173,26 @@
 - type: entity
   id: SpawnPointStationEngineer
   parent: SpawnPointJobBase
-  name: stationengineer
+  name: mechanic
   components:
   - type: SpawnPoint
-    job_id: StationEngineer
+    job_id: Mechanic
   - type: Sprite
     layers:
       - state: green
       - state: engineer
+
+- type: entity
+  id: SpawnPointPowerTechnician
+  parent: SpawnPointJobBase
+  name: power technician
+  components:
+  - type: SpawnPoint
+    job_id: PowerTechnician
+  - type: Sprite
+    layers:
+    - state: green
+    - state: engineer
 
 # Medical
 
@@ -223,10 +211,10 @@
 - type: entity
   id: SpawnPointMedicalDoctor
   parent: SpawnPointJobBase
-  name: medicaldoctor
+  name: practitioner
   components:
   - type: SpawnPoint
-    job_id: MedicalDoctor
+    job_id: Practitioner
   - type: Sprite
     layers:
       - state: green
@@ -235,10 +223,10 @@
 - type: entity
   id: SpawnPointChemist
   parent: SpawnPointJobBase
-  name: chemist
+  name: pharmacist
   components:
   - type: SpawnPoint
-    job_id: Chemist
+    job_id: Pharmacist
   - type: Sprite
     layers:
       - state: green
@@ -261,10 +249,10 @@
 - type: entity
   id: SpawnPointScientist
   parent: SpawnPointJobBase
-  name: scientist
+  name: xenoarchaeologist
   components:
   - type: SpawnPoint
-    job_id: Scientist
+    job_id: Xenoarchaeologist
   - type: Sprite
     layers:
       - state: green
@@ -299,10 +287,10 @@
 - type: entity
   id: SpawnPointSecurityOfficer
   parent: SpawnPointJobBase
-  name: securityofficer
+  name: mercenary
   components:
   - type: SpawnPoint
-    job_id: SecurityOfficer
+    job_id: AntaresMercenary
   - type: Sprite
     layers:
       - state: green

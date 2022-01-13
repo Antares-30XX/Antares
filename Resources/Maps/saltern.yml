@@ -5433,13 +5433,6 @@ entities:
     pos: -30.5,1.5
     parent: 853
     type: Transform
-- uid: 492
-  type: SpawnPointMime
-  components:
-  - rot: 4.371139006309477E-08 rad
-    pos: -19.5,-8.5
-    parent: 853
-    type: Transform
 - uid: 493
   type: RandomSpawner
   components:
@@ -19992,13 +19985,6 @@ entities:
   type: SpawnPointAssistant
   components:
   - pos: -28.5,1.5
-    parent: 853
-    type: Transform
-- uid: 1093
-  type: SpawnPointChef
-  components:
-  - rot: 4.371139006309477E-08 rad
-    pos: -12.5,0.5
     parent: 853
     type: Transform
 - uid: 1094
