@@ -29,7 +29,7 @@ namespace Content.Client.Stylesheets
                 // Ew, but ok
                 new []
                 {
-                    $"/Fonts/NotoSans{ds}/NotoSans{ds}-{variation}.ttf",
+                    $"/Fonts/Iosevka{ds}/iosevka{ds}-{variation}.ttf",
                     $"/Fonts/NotoSans/NotoSansSymbols-{sv}.ttf",
                     "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf"
                 },
@@ -114,9 +114,10 @@ namespace Content.Client.Stylesheets
             var notoSans12 = resCache.notoStack(size: 12);
             var notoSansItalic12 = resCache.notoStack(variation: "Italic", size: 12);
             var notoSansBold12 = resCache.notoStack(variation: "Bold", size: 12);
+            var notoSansBold14 = resCache.notoStack(variation: "Bold", size: 14);
             var notoSansBoldItalic12 = resCache.notoStack(variation: "BoldItalic", size: 12);
-            var notoSansDisplayBold14 = resCache.notoStack(variation: "Bold", display: true, size: 14);
-            var notoSansDisplayBold16 = resCache.notoStack(variation: "Bold", display: true, size: 16);
+            //var notoSansDisplayBold14 = resCache.notoStack(variation: "Bold", display: true, size: 14);
+            //v/ar notoSansDisplayBold16 = resCache.notoStack(variation: "Bold", display: true, size: 16);
             var notoSans15 = resCache.notoStack(variation: "Regular", size: 15);
             var notoSans16 = resCache.notoStack(variation: "Regular", size: 16);
             var notoSansBold16 = resCache.notoStack(variation: "Bold", size: 16);
@@ -454,7 +455,7 @@ namespace Content.Client.Stylesheets
                     new[]
                     {
                         new StyleProperty(Label.StylePropertyFontColor, NanoGold),
-                        new StyleProperty(Label.StylePropertyFont, notoSansDisplayBold14),
+                        new StyleProperty(Label.StylePropertyFont, notoSansBold16),
                     }),
                 // Alert (white) window title.
                 new StyleRule(
@@ -462,7 +463,7 @@ namespace Content.Client.Stylesheets
                     new[]
                     {
                         new StyleProperty(Label.StylePropertyFontColor, Color.White),
-                        new StyleProperty(Label.StylePropertyFont, notoSansDisplayBold14),
+                        new StyleProperty(Label.StylePropertyFont, notoSansBold16),
                     }),
                 // Window background.
                 new StyleRule(
@@ -842,7 +843,7 @@ namespace Content.Client.Stylesheets
                 // hotbar slot
                 new StyleRule(new SelectorElement(typeof(RichTextLabel), new[] {StyleClassHotbarSlotNumber}, null, null), new[]
                 {
-                    new StyleProperty("font", notoSansDisplayBold16)
+                    new StyleProperty("font", notoSansBold16)
                 }),
 
                 // Entity tooltip
@@ -1043,7 +1044,7 @@ namespace Content.Client.Stylesheets
                     new SelectorElement(typeof(Label), new[] {GameHud.TopButton.StyleClassLabelTopButton}, null, null),
                     new[]
                     {
-                        new StyleProperty(Label.StylePropertyFont, notoSansDisplayBold14),
+                        new StyleProperty(Label.StylePropertyFont, notoSansBold16),
                     }),
 
                 // Targeting doll

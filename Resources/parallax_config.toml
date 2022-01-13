@@ -1,9 +1,9 @@
 # Background nebula detail.
 [[layers]]
 type = "noise"
-seed = 7832
-innercolor = "#5d1fe1"
-outercolor = "#230070"
+seed = 1234
+innercolor = "#bd1531"
+outercolor = "#590715"
 noise_type = "ridged"
 frequency = "4"
 octaves = 8
@@ -28,7 +28,7 @@ threshold = "0.0"
 [[layers]]
 type = "points"
 seed = 3909
-closecolor = "#4B5072"
+closecolor = "#61464a"
 count = 1500
 mask = true
 masknoise_type = "fbm"
@@ -43,7 +43,7 @@ maskseed = 3551
 # Bright background nebula stars.
 [[layers]]
 type = "points"
-closecolor = "#7E86BF"
+closecolor = "#d47786"
 count = 1000
 seed = 3472
 mask = true
@@ -59,7 +59,7 @@ maskseed = 3551
 # Bright background nebula stars, dim edge.
 [[layers]]
 type = "points"
-closecolor = "#3D415C"
+closecolor = "#3d1d23"
 pointsize = 2
 count = 1000
 seed = 3472
