@@ -1,0 +1,52 @@
+﻿- type: entity
+  parent: BayAirlockBase
+  id: BayAirlockCommand
+  suffix: BayCommand
+  components:
+  - type: Appearance
+    visuals:
+    - type: BayAirlockVisualizer
+      doorColor: '#46698cff'
+
+- type: entity
+  parent: BayAirlockBase
+  id: BayAirlockSecurity
+  suffix: BaySecurity
+  components:
+  - type: Appearance
+    visuals:
+    - type: BayAirlockVisualizer
+      doorColor: '#9d2300ff'
+
+- type: entity
+  parent: BayAirlockBase
+  id: BayAirlockMedical
+  suffix: BayMedical
+  components:
+  - type: Appearance
+    visuals:
+    - type: BayAirlockVisualizer
+      doorColor: '#ffffffff'
+      stripeColor: '#00e1ffff'
+
+- type: entity
+  parent: BayAirlockBase
+  id: BayAirlockAtmos
+  suffix: BayAtmos
+  components:
+  - type: Appearance
+    visuals:
+    - type: BayAirlockVisualizer
+      doorColor: '#ffbf00ff'
+      stripeColor: '#00ffffff'
+
+- type: entity
+  parent: BayAirlockBase
+  id: BayAirlockResearch
+  suffix: BayResearch
+  components:
+  - type: Appearance
+    visuals:
+    - type: BayAirlockVisualizer
+      doorColor: '#ffffffff'
+      stripeColor: '#9933ffff'

@@ -1,0 +1,10 @@
+﻿- type: entity
+  parent: BayAirlockGlassBase
+  id: BayAirlockGlassMedical
+  suffix: BayMedical
+  components:
+  - type: Appearance
+    visuals:
+    - type: BayAirlockVisualizer
+      doorColor: '#ffffffff'
+      stripeColor: '#00e1ffff'
