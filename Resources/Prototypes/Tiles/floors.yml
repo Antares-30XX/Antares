@@ -6,7 +6,40 @@
   - plating
   is_subfloor: false
   can_crowbar: true
+  # TODO ANTARES add unique
   footstep_sounds:
+    collection: footstep_floor
+  friction: 0.30
+  item_drop: FloorTileItemSteel
+  thermalConductivity: 0.04
+  heatCapacity: 10000
+
+- type: tile
+  id: floor_steel_ridged
+  name: steel ridged floor
+  texture: "steel_ridged"
+  base_turfs:
+  - plating
+  is_subfloor: false
+  can_crowbar: true
+  # TODO ANTARES add unique
+  footstep_sounds:
+    collection: footstep_floor
+  friction: 0.30
+  item_drop: FloorTileItemSteel
+  thermalConductivity: 0.04
+  heatCapacity: 10000
+
+- type: tile
+  id: floor_steel_grid
+  name: steel grid floor
+  texture: "steel_grid"
+  base_turfs:
+  - plating
+  is_subfloor: false
+  can_crowbar: true
+  footstep_sounds:
+  # TODO ANTARES add unique
     collection: footstep_floor
   friction: 0.30
   item_drop: FloorTileItemSteel
@@ -93,6 +126,21 @@
   id: floor_mono
   name: mono floor
   texture: "mono"
+  base_turfs:
+  - plating
+  is_subfloor: false
+  can_crowbar: true
+  footstep_sounds:
+    collection: footstep_floor
+  friction: 0.30
+  item_drop: FloorTileItemMono
+  thermalConductivity: 0.04
+  heatCapacity: 10000
+
+- type: tile
+  id: floor_mono_dark
+  name: mono dark floor
+  texture: "monotiledark"
   base_turfs:
   - plating
   is_subfloor: false

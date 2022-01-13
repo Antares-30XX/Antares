@@ -12,6 +12,7 @@
     netsync: false
     color: "#889192"
     drawdepth: Walls
+    # TODO ANTARES bay lowwalls
     sprite: Structures/Walls/low_wall.rsi
   - type: Icon
     sprite: Structures/Walls/low_wall.rsi
