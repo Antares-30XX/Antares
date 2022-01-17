@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Content.Shared.CharacterInfo;
 using Content.Shared.Objectives;
 using Robust.Client.GameObjects;
@@ -6,7 +7,9 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.Utility;
 using Robust.Shared.GameObjects;
+using Robust.Shared.Localization;
 using Robust.Shared.Maths;
+using Robust.Shared.Utility;
 
 namespace Content.Client.CharacterInfo.Components;
 
@@ -35,22 +38,49 @@ public class CharacterInfoSystem : EntitySystem
         if (!EntityManager.TryGetComponent(msg.EntityUid, out CharacterInfoComponent characterInfoComponent))
             return;
 
-        UpdateUI(characterInfoComponent, msg.JobTitle, msg.Objectives, msg.Briefing);
+        if (!EntityManager.TryGetComponent(msg.EntityUid, out MetaDataComponent metadata))
+            return;
+
+        UpdateUI(characterInfoComponent, msg.JobInfo, msg.Objectives, msg.Allegiances, msg.Briefing, metadata.EntityName);
         if (EntityManager.TryGetComponent(msg.EntityUid, out ISpriteComponent? spriteComponent))
         {
             characterInfoComponent.Control.SpriteView.Sprite = spriteComponent;
         }
-
-        if (!EntityManager.TryGetComponent(msg.EntityUid, out MetaDataComponent metadata))
-            return;
-        characterInfoComponent.Control.NameLabel.Text = metadata.EntityName;
     }
 
-    private void UpdateUI(CharacterInfoComponent comp, string jobTitle, Dictionary<string, List<ConditionInfo>> objectives, string briefing)
+    private void UpdateUI(CharacterInfoComponent comp, (string Name, string Desc) jobInfo, Dictionary<string, List<ConditionInfo>> objectives, Dictionary<string, string> allegiances, string briefing, string entityName)
     {
-        comp.Control.SubText.Text = jobTitle;
+        string FirstLetterToUpper(string str)
+        {
+            return char.ToUpper(str[0]) + str.Substring(1);
+        }
 
+        comp.Control.NameLabel.SetMessage(FormattedMessage.FromMarkup($"[color=#cccccc]{FirstLetterToUpper(jobInfo.Name)} {entityName}"));
+
+        // Allegiances
+        // Job desc first.
+        comp.Control.AllegianceContainer.RemoveAllChildren();
+        var jobLabel = new RichTextLabel() { Margin = new Thickness(0, 10, 0, 10), MaxWidth = 500};
+        jobLabel.SetMessage(FormattedMessage.FromMarkup($"[color=#ffffff]{jobInfo.Desc}[/color]"));
+        comp.Control.AllegianceContainer.AddChild(jobLabel);
+        foreach (var (name, desc) in allegiances)
+        {
+            var allegianceLabel = new RichTextLabel() { Margin = new Thickness(0, 0, 0, 10), MaxWidth = 500};
+            allegianceLabel.SetMessage(FormattedMessage.FromMarkup($"[color=#ffffff]As a member of[/color] [color=#cccccc]{name}[/color]: [color=#ffffff]{desc}[/color]"));
+            comp.Control.AllegianceContainer.AddChild(allegianceLabel);
+        }
+
+        // Objectives
         comp.Control.ObjectivesContainer.RemoveAllChildren();
+
+        if (objectives.Any())
+        {
+            comp.Control.ObjectivesContainer.AddChild(new Label
+            {
+                Text = Loc.GetString("character-info-objectives-label"),
+                HorizontalAlignment = Control.HAlignment.Center
+            });
+        }
         foreach (var (groupId, objectiveConditions) in objectives)
         {
             var vbox = new BoxContainer
@@ -97,13 +127,13 @@ public class CharacterInfoSystem : EntitySystem
             {
                 Orientation = BoxContainer.LayoutOrientation.Horizontal
             };
-            
+
             briefinghBox.AddChild(new Label
             {
                 Text = briefing,
                 Modulate = Color.Yellow
             });
-            
+
             vbox.AddChild(briefinghBox);
             comp.Control.ObjectivesContainer.AddChild(vbox);
         }

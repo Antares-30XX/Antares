@@ -21,15 +21,17 @@ public class RequestCharacterInfoEvent : EntityEventArgs
 public class CharacterInfoEvent : EntityEventArgs
 {
     public readonly EntityUid EntityUid;
-    public readonly string JobTitle;
+    public readonly (string Name, string Desc) JobInfo;
     public readonly Dictionary<string, List<ConditionInfo>> Objectives;
+    public readonly Dictionary<string, string> Allegiances;
     public readonly string Briefing;
 
-    public CharacterInfoEvent(EntityUid entityUid, string jobTitle, Dictionary<string, List<ConditionInfo>> objectives, string briefing)
+    public CharacterInfoEvent(EntityUid entityUid, (string, string) jobInfo, Dictionary<string, List<ConditionInfo>> objectives, string briefing, Dictionary<string, string> allegiances)
     {
         EntityUid = entityUid;
-        JobTitle = jobTitle;
+        JobInfo = jobInfo;
         Objectives = objectives;
         Briefing = briefing;
+        Allegiances = allegiances;
     }
 }

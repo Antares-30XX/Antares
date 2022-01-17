@@ -50,9 +50,9 @@ namespace Content.Client.CharacterInterface
 
             comp.Window = new CharacterInterfaceComponent.CharacterWindow(comp.UIComponents)
             {
-                SetSize = (545, 400)
+                SetSize = (545, 300)
             };
-            
+
             comp.Window.OnClose += () => _gameHud.CharacterButtonDown = false;
         }
 
@@ -99,7 +99,7 @@ namespace Content.Client.CharacterInterface
             comp.Window.Close();
         }
 
-        private void HandleOpenCharacterMenu()
+        public void HandleOpenCharacterMenu()
         {
             if (_playerManager.LocalPlayer?.ControlledEntity == null
                 || !EntityManager.TryGetComponent(_playerManager.LocalPlayer.ControlledEntity, out CharacterInterfaceComponent? characterInterface))

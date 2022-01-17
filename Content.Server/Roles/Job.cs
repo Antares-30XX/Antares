@@ -35,7 +35,6 @@ namespace Content.Server.Roles
             if (Mind.TryGetSession(out var session))
             {
                 var chat = IoCManager.Resolve<IChatManager>();
-                chat.DispatchServerMessage(session, Loc.GetString("job-greet-introduce-job-name", ("jobName", Name)));
 
                 if(Prototype.RequireAdminNotify)
                     chat.DispatchServerMessage(session, Loc.GetString("job-greet-important-disconnect-admin-notify"));
