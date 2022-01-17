@@ -42,7 +42,6 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly IdCardSystem _cardSystem = default!;
         [Dependency] private readonly InventorySystem _inventorySystem = default!;
         [Dependency] private readonly TraitSystem _traitSystem = default!;
-        [Dependency] private readonly IConfigurationManager _cfg = default!;
 
         /// <summary>
         /// Can't yet be removed because every test ever seems to depend on it. I'll make removing this a different PR.
@@ -141,10 +140,10 @@ namespace Content.Server.GameTicking
                 _traitSystem.SelectTrait(variation: 1),
             };
 
-            if (_robustRandom.Prob(_cfg.GetCVar(CCVars.JobTraitChance)))
+            if (_robustRandom.Prob(_configurationManager.GetCVar(CCVars.JobTraitChance)))
                 traits.Add(_traitSystem.SelectJobTrait(jobPrototype.ID));
 
-            if (_robustRandom.Prob(_cfg.GetCVar(CCVars.RareTraitChance)))
+            if (_robustRandom.Prob(_configurationManager.GetCVar(CCVars.RareTraitChance)))
                 traits.Add(_traitSystem.SelectTrait("Rare"));
 
             newMind.Traits = traits;
