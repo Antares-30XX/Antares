@@ -1,0 +1,19 @@
+﻿- type: traitPool
+  id: Normal0
+  selections:
+  - shoot people w/ gun
+  - you are very stupid
+
+- type: traitPool
+  id: Normal1
+  selections:
+  - do not shoot people w/ gun
+  - you are very smart
+
+- type: traitPool
+  id: Rare0
+  selections:
+  - aaaaa test rare
+  - bbbbb test rare
+  - ccccc test rare
+  - ddddd test rare

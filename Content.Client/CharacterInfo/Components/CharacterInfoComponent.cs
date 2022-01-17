@@ -38,6 +38,8 @@ namespace Content.Client.CharacterInfo.Components
 
             public BoxContainer AllegianceContainer { get; }
 
+            public BoxContainer TraitContainer { get; }
+
             public CharacterInfoControl()
             {
                 IoCManager.InjectDependencies(this);
@@ -61,6 +63,13 @@ namespace Content.Client.CharacterInfo.Components
 
                 Tabs.AddChild(InfoContainer);
                 TabContainer.SetTabTitle(InfoContainer, "Info");
+
+                TraitContainer = new BoxContainer
+                {
+                    Orientation = LayoutOrientation.Vertical
+                };
+                Tabs.AddChild(TraitContainer);
+                TabContainer.SetTabTitle(TraitContainer, "Traits");
 
                 ObjectivesContainer = new BoxContainer
                 {

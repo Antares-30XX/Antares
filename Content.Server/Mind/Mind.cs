@@ -35,7 +35,7 @@ namespace Content.Server.Mind
         private readonly ISet<Role> _roles = new HashSet<Role>();
 
         private readonly List<Objective> _objectives = new();
-        
+
         public string Briefing = String.Empty;
 
         /// <summary>
@@ -105,6 +105,12 @@ namespace Content.Server.Mind
         /// </summary>
         [ViewVariables]
         public IEnumerable<Objective> AllObjectives => _objectives;
+
+        /// <summary>
+        ///     All traits that this mind has, given at roundstart.
+        /// </summary>
+        [ViewVariables]
+        public List<string> Traits = new();
 
         /// <summary>
         ///     The session of the player owning this mind.

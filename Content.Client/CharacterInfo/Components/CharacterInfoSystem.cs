@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Content.Shared.CharacterInfo;
-using Content.Shared.Objectives;
 using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -41,47 +39,61 @@ public class CharacterInfoSystem : EntitySystem
         if (!EntityManager.TryGetComponent(msg.EntityUid, out MetaDataComponent metadata))
             return;
 
-        UpdateUI(characterInfoComponent, msg.JobInfo, msg.Objectives, msg.Allegiances, msg.Briefing, metadata.EntityName);
+        UpdateUI(characterInfoComponent, msg, metadata.EntityName);
         if (EntityManager.TryGetComponent(msg.EntityUid, out ISpriteComponent? spriteComponent))
         {
             characterInfoComponent.Control.SpriteView.Sprite = spriteComponent;
         }
     }
 
-    private void UpdateUI(CharacterInfoComponent comp, (string Name, string Desc) jobInfo, Dictionary<string, List<ConditionInfo>> objectives, Dictionary<string, string> allegiances, string briefing, string entityName)
+    private void UpdateUI(CharacterInfoComponent comp, CharacterInfoEvent msg, string entityName)
     {
         string FirstLetterToUpper(string str)
         {
             return char.ToUpper(str[0]) + str.Substring(1);
         }
 
-        comp.Control.NameLabel.SetMessage(FormattedMessage.FromMarkup($"[color=#cccccc]{FirstLetterToUpper(jobInfo.Name)} {entityName}"));
+        comp.Control.NameLabel.SetMessage(FormattedMessage.FromMarkup($"[color=#cccccc]{FirstLetterToUpper(msg.JobInfo.Name)} {entityName}"));
 
         // Allegiances
         // Job desc first.
         comp.Control.AllegianceContainer.RemoveAllChildren();
         var jobLabel = new RichTextLabel() { Margin = new Thickness(0, 10, 0, 10), MaxWidth = 500};
-        jobLabel.SetMessage(FormattedMessage.FromMarkup($"[color=#ffffff]{jobInfo.Desc}[/color]"));
+        jobLabel.SetMessage(FormattedMessage.FromMarkup($"[color=#ffffff]{msg.JobInfo.Desc}[/color]"));
         comp.Control.AllegianceContainer.AddChild(jobLabel);
-        foreach (var (name, desc) in allegiances)
+        foreach (var (name, desc) in msg.Allegiances)
         {
             var allegianceLabel = new RichTextLabel() { Margin = new Thickness(0, 0, 0, 10), MaxWidth = 500};
             allegianceLabel.SetMessage(FormattedMessage.FromMarkup($"[color=#ffffff]As a member of[/color] [color=#cccccc]{name}[/color]: [color=#ffffff]{desc}[/color]"));
             comp.Control.AllegianceContainer.AddChild(allegianceLabel);
         }
 
+        // Traits
+        comp.Control.TraitContainer.RemoveAllChildren();
+        foreach (var trait in msg.Traits)
+        {
+            var label = new RichTextLabel() { Margin = new(10, 5, 0, 5)};
+            label.SetMessage(FormattedMessage.FromMarkup($"[color=#cccccc]{trait}[/color]"));
+            comp.Control.TraitContainer.AddChild(label);
+        }
+
         // Objectives
         comp.Control.ObjectivesContainer.RemoveAllChildren();
 
-        if (objectives.Any())
+        if (msg.Objectives.Any())
         {
+            TabContainer.SetTabVisible(comp.Control.ObjectivesContainer, true);
             comp.Control.ObjectivesContainer.AddChild(new Label
             {
                 Text = Loc.GetString("character-info-objectives-label"),
                 HorizontalAlignment = Control.HAlignment.Center
             });
         }
-        foreach (var (groupId, objectiveConditions) in objectives)
+        else
+        {
+            TabContainer.SetTabVisible(comp.Control.ObjectivesContainer, false);
+        }
+        foreach (var (groupId, objectiveConditions) in msg.Objectives)
         {
             var vbox = new BoxContainer
             {
@@ -123,6 +135,8 @@ public class CharacterInfoSystem : EntitySystem
                 );
                 vbox.AddChild(hbox);
             }
+
+            // Briefing
             var briefinghBox = new BoxContainer
             {
                 Orientation = BoxContainer.LayoutOrientation.Horizontal
@@ -130,7 +144,7 @@ public class CharacterInfoSystem : EntitySystem
 
             briefinghBox.AddChild(new Label
             {
-                Text = briefing,
+                Text = msg.Briefing,
                 Modulate = Color.Yellow
             });
 

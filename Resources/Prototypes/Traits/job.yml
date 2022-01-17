@@ -1,0 +1,4 @@
+﻿- type: traitPool
+  id: Captain
+  selections:
+  - u are the captain

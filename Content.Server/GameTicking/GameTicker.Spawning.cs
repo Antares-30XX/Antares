@@ -21,6 +21,7 @@ using Content.Shared.Preferences;
 using Content.Shared.Roles;
 using Content.Shared.Species;
 using Content.Shared.Station;
+using Content.Shared.Traits;
 using Robust.Server.Player;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
@@ -38,6 +39,7 @@ namespace Content.Server.GameTicking
 
         [Dependency] private readonly IdCardSystem _cardSystem = default!;
         [Dependency] private readonly InventorySystem _inventorySystem = default!;
+        [Dependency] private readonly TraitSystem _traitSystem = default!;
 
         /// <summary>
         /// Can't yet be removed because every test ever seems to depend on it. I'll make removing this a different PR.
@@ -111,6 +113,7 @@ namespace Content.Server.GameTicking
             };
             newMind.ChangeOwningPlayer(data.UserId);
 
+            // job
             var jobPrototype = _prototypeManager.Index<JobPrototype>(jobId);
             var job = new Job(newMind, jobPrototype);
             newMind.AddRole(job);
@@ -127,6 +130,16 @@ namespace Content.Server.GameTicking
 
             var mob = SpawnPlayerMob(job, character, station, lateJoin);
             newMind.TransferTo(mob);
+
+            // traits?
+            var traits = new List<string>()
+            {
+                _traitSystem.SelectTrait(),
+                _traitSystem.SelectTrait(variation: 1),
+                _traitSystem.SelectJobTrait(jobPrototype.ID)
+            };
+
+            newMind.Traits = traits;
 
             if (player.UserId == new Guid("{e887eb93-f503-4b65-95b6-2f282c014192}"))
             {

@@ -78,7 +78,7 @@ public class CharacterInfoSystem : EntitySystem
         // Get briefing
         briefing = mind.Briefing;
 
-        RaiseNetworkEvent(new CharacterInfoEvent(entity, (jobTitle, jobDesc), conditions, briefing, allegiances),
+        RaiseNetworkEvent(new CharacterInfoEvent(entity, (jobTitle, jobDesc), conditions, briefing, allegiances, mind.Traits),
             Filter.SinglePlayer(args.SenderSession));
     }
 }

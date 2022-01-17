@@ -25,13 +25,15 @@ public class CharacterInfoEvent : EntityEventArgs
     public readonly Dictionary<string, List<ConditionInfo>> Objectives;
     public readonly Dictionary<string, string> Allegiances;
     public readonly string Briefing;
+    public List<string> Traits;
 
-    public CharacterInfoEvent(EntityUid entityUid, (string, string) jobInfo, Dictionary<string, List<ConditionInfo>> objectives, string briefing, Dictionary<string, string> allegiances)
+    public CharacterInfoEvent(EntityUid entityUid, (string, string) jobInfo, Dictionary<string, List<ConditionInfo>> objectives, string briefing, Dictionary<string, string> allegiances, List<string> traits)
     {
         EntityUid = entityUid;
         JobInfo = jobInfo;
         Objectives = objectives;
         Briefing = briefing;
         Allegiances = allegiances;
+        Traits = traits;
     }
 }
