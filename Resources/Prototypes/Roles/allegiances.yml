@@ -1,0 +1,44 @@
+﻿- type: allegiance
+  id: Logistics
+  name: Logistics
+  description: Push crates. Make profit for the station. Get your hands on as many supplies as possible and distribute them efficiently.
+
+- type: allegiance
+  id: Civilian
+  name: the Civilian sector
+  description: Keep your supervisors happy and do your job. You're easily replaceable.
+
+- type: allegiance
+  id: Undership
+  name: the Undership
+  description: Protect your fellow outcasts, but keep yourself alive. You can't rely on anyone.
+
+- type: allegiance
+  id: Inn
+  name: the Inn
+  description: Keep the order. Make food and drink using whatever supplies come in. Provide avenues for station commerce--anything goes.
+
+- type: allegiance
+  id: Science
+  name: Research & Development
+  description: Discover new or forgotten knowledge using the scientific method. Process alien artifacts and conduct experiments.
+
+- type: allegiance
+  id: Medical
+  name: Medical
+  description: Keep the crew healthy, distribute medicine and chemicals when necessary.
+
+- type: allegiance
+  id: Security
+  name: Security
+  description: You are Justice. Keep the peace at any cost.
+
+- type: allegiance
+  id: Engineering
+  name: Engineering
+  description: Keep power running, the station's hull secure, and atmospherics uncompromised. Make modifications to the station if necessary.
+
+- type: allegiance
+  id: Command
+  name: Command
+  description: Manage your department. Keep the station running smoothly. Take control when you need to.

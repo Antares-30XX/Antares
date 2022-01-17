@@ -1,9 +1,10 @@
 - type: job
   id: Stowaway
   name: "stowaway"
+  description: You aren't supposed to be here. Keep yourself inconspicuous, but you need to make a living somehow.
   startingGear: AssistantGear
-  departments:
-  - Civilian
+  allegiances:
+  - Undership
   icon: "Assistant"
   supervisors: "absolutely everyone"
   access:

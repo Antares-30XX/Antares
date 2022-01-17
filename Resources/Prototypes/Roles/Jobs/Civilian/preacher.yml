@@ -1,9 +1,10 @@
 - type: job
   id: Preacher
   name: "preacher"
+  description: How can they not understand? Even if you are ridiculed in life, it is your prime directive to teach the ways that may one day save this damned universe.
   startingGear: ChaplainGear
-  departments:
-  - Civilian
+  allegiances:
+  - Undership
   icon: "Chaplain"
   supervisors: "absolutely everyone"
   access:

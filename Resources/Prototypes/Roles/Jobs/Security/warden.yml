@@ -1,8 +1,9 @@
 - type: job
   id: Warden
   name: "warden"
+  description: Keep prisoners in check. Kill anyone that enters the Armory without authorization. Security gets a bad rap, but you're doing your best to keep their name clean.
   startingGear: WardenGear
-  departments:
+  allegiances:
   - Security
   icon: "Warden"
   supervisors: "the head of security"

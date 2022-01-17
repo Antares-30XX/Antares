@@ -1,8 +1,9 @@
 - type: job
   id: Janitor
   name: "janitor"
+  description: A pile of trash in one department may spiral into endless crime. Keep the station clean, and investigate suspicious scenes.
   startingGear: JanitorGear
-  departments:
+  allegiances:
   - Security
   icon: "Janitor"
   supervisors: "the head of security"

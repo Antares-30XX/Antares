@@ -1,9 +1,10 @@
 - type: job
   id: Captain
   name: "captain"
+  description: You're what this station is all about, baby. Pilot this ship into the great unknown and come back a hero.
   head: true
   startingGear: CaptainGear
-  departments:
+  allegiances:
   - Command
   icon: "Captain"
   requireAdminNotify: true

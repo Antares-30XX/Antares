@@ -1,9 +1,10 @@
 - type: job
   id: WarehouseWorker
   name: "warehouse worker"
+  description: Do any errands asked of you by the Quartermaster. You may not be at the top of the totem pole, but you take pride in Logistics.
   startingGear: CargoTechGear
-  departments:
-  - Cargo
+  allegiances:
+  - Logistics
   icon: "CargoTechnician"
   supervisors: "the quartermaster"
   access:

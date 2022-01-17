@@ -3,9 +3,10 @@
 - type: job
   id: ChiefMedicalOfficer
   name: "chief medical officer"
+  description: Conduct medical triage and surgery when necessary. Decide who should be saved, and when.
   head: true
   startingGear: CMOGear
-  departments:
+  allegiances:
   - Command
   - Medical
   icon: "ChiefMedicalOfficer"

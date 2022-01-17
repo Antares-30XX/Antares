@@ -1,9 +1,10 @@
 - type: job
   id: HeadOfSecurity
   name: "head of security"
+  description: You may not have a loyal task force, but your mercenaries are good at their job. Keep them alive and out of trouble.
   head: true
   startingGear: HoSGear
-  departments:
+  allegiances:
   - Command
   - Security
   icon: "HeadOfSecurity"

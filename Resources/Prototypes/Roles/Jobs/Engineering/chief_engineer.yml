@@ -1,9 +1,10 @@
 - type: job
   id: ChiefEngineer
   name: "chief engineer"
+  description: This ship means a lot to you, and you're being paid a lot of money to keep it alive. Do your best.
   head: true
   startingGear: ChiefEngineerGear
-  departments:
+  allegiances:
   - Command
   - Engineering
   icon: "ChiefEngineer"

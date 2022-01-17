@@ -1,8 +1,9 @@
 - type: job
   id: AntaresMercenary
   name: "mercenary"
+  description: Oh, fuck yeah. This is the gig you've wanted all your life. Keep the station 'orderly' and 'safe', whatever your interpretation of that means. You're not being paid to help non-Antares personnel.
   startingGear: SecurityOfficerGear
-  departments:
+  allegiances:
   - Security
   icon: "SecurityOfficer"
   supervisors: "the head of security"

@@ -1,9 +1,11 @@
 - type: job
   id: Clown
   name: "clown"
+  description: You don't know why Antares recruited you, but you're here anyway. Do what you do best, space jester!
   startingGear: ClownGear
-  departments:
+  allegiances:
   - Civilian
+  - Inn
   icon: "Clown"
   supervisors: "the innkeeper"
   access:

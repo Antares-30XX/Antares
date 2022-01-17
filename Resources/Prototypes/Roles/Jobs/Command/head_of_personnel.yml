@@ -1,8 +1,9 @@
 - type: job
   id: HeadOfPersonnel
   name: "head of personnel"
+  description: The captain may call themselves the "executive authority", but you're the real person in charge. Keep all the departments in ship shape and help coordinate efforts.
   startingGear: HoPGear
-  departments:
+  allegiances:
   - Command
   - Civilian
   icon: "HeadOfPersonnel"
