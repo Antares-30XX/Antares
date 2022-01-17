@@ -52,7 +52,7 @@
 - type: entity
   parent: BasePDA
   id: AssistantPDA
-  name: assistant PDA
+  name: stowaway PDA
   description: Why isn't it gray?
   components:
   - type: PDA
@@ -61,7 +61,7 @@
 - type: entity
   parent: BasePDA
   id: BotanistPDA
-  name: botanist PDA
+  name: hydroponicist PDA
   description: Has an earthy scent.
   components:
   - type: PDA
@@ -119,27 +119,7 @@
       - SmallImpassable
 
 - type: entity
-  parent: BasePDA
-  id: MimePDA
-  name: mime PDA
-  description: Suprisingly not on mute.
-  components:
-  - type: PDA
-    id: MimeIDCard
-    idSlot:
-      name: ID Card
-      whitelist:
-        components:
-        - IdCard
-  - type: Appearance
-    visuals:
-      - type: PDAVisualizer
-        state: pda-mime
-  - type: Icon
-    state: pda-mime
-
-- type: entity
-  name: Chaplain PDA
+  name: preacher PDA
   parent: BasePDA
   id: ChaplainPDA
   description: God's chosen PDA.
@@ -154,7 +134,7 @@
     state: pda-chaplain
 
 - type: entity
-  name: Quartermaster PDA
+  name: quartermaster PDA
   parent: BasePDA
   id: QuartermasterPDA
   description: PDA for the guy that orders the guns.
@@ -186,7 +166,7 @@
 - type: entity
   parent: BasePDA
   id: BartenderPDA
-  name: bartender PDA
+  name: innkeeper PDA
   description: Smells like beer.
   components:
   - type: PDA
@@ -197,36 +177,6 @@
         state: pda-bartender
   - type: Icon
     state: pda-bartender
-
-- type: entity
-  parent: BasePDA
-  id: LibrarianPDA
-  name: librarian PDA
-  description: Smells like books.
-  components:
-  - type: PDA
-    id: LibrarianIDCard
-  - type: Appearance
-    visuals:
-      - type: PDAVisualizer
-        state: pda-library
-  - type: Icon
-    state: pda-library
-
-- type: entity
-  parent: BasePDA
-  id: LawyerPDA
-  name: lawyer PDA
-  description: For lawyers to poach dubious clients.
-  components:
-  - type: PDA
-    id: LawyerIDCard
-  - type: Appearance
-    visuals:
-      - type: PDAVisualizer
-        state: pda-lawyer
-  - type: Icon
-    state: pda-lawyer
 
 - type: entity
   parent: BasePDA
@@ -257,7 +207,6 @@
         state: pda-captain
   - type: Icon
     state: pda-captain
-
 
 - type: entity
   parent: BasePDA
@@ -339,7 +288,7 @@
 - type: entity
   parent: BasePDA
   id: ChemistryPDA
-  name: chemistry PDA
+  name: pharmacist PDA
   description: It has a few discolored blotches here and there.
   components:
   - type: PDA
