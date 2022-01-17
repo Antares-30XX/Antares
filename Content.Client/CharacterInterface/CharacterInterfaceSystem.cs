@@ -50,7 +50,7 @@ namespace Content.Client.CharacterInterface
 
             comp.Window = new CharacterInterfaceComponent.CharacterWindow(comp.UIComponents)
             {
-                SetSize = (545, 300)
+                SetSize = (545, 375)
             };
 
             comp.Window.OnClose += () => _gameHud.CharacterButtonDown = false;
