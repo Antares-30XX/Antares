@@ -1,8 +1,9 @@
 ﻿- type: job
   id: PowerTechnician
   name: "power technician"
+  description: Feed the Singularity. Maximize efficiency on the powernet.
   startingGear: StationEngineerGear
-  departments:
+  allegiances:
   - Engineering
   icon: "StationEngineer"
   supervisors: "the chief engineer"

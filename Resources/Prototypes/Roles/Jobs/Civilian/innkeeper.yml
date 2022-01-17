@@ -1,9 +1,11 @@
 - type: job
   id: Innkeeper
   name: "innkeeper"
+  description: You have utmost authority over the Inn. Keep it safe, and make sure people respect your influence.
   startingGear: BartenderGear
-  departments:
+  allegiances:
   - Civilian
+  - Inn
   icon: "Bartender"
   supervisors: "your shotgun"
   access:

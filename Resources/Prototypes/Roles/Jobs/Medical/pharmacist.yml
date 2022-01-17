@@ -1,8 +1,9 @@
 - type: job
   id: Pharmacist
   name: "pharmacist"
+  description: Make medicine and pharmaceuticals for the station. Your skills may come in handy in other places, if you can find buyers.
   startingGear: ChemistGear
-  departments:
+  allegiances:
   - Medical
   icon: "Chemist"
   supervisors: "the chief medical officer"

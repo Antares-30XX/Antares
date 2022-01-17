@@ -1,8 +1,9 @@
 - type: job
   id: Mechanic
   name: "mechanic"
+  description: Keep the machines on the station running nicely, fix hull breaches and sabotage attempts, and renovate.
   startingGear: StationEngineerGear
-  departments:
+  allegiances:
   - Engineering
   icon: "StationEngineer"
   supervisors: "the chief engineer"

@@ -28,10 +28,15 @@ namespace Content.Client.CharacterInfo.Components
         public sealed class CharacterInfoControl : BoxContainer
         {
             public SpriteView SpriteView { get; }
-            public Label NameLabel { get; }
-            public Label SubText { get; }
+            public RichTextLabel NameLabel { get; }
+
+            public TabContainer Tabs { get; }
 
             public BoxContainer ObjectivesContainer { get; }
+
+            public BoxContainer InfoContainer { get; }
+
+            public BoxContainer AllegianceContainer { get; }
 
             public CharacterInfoControl()
             {
@@ -39,45 +44,30 @@ namespace Content.Client.CharacterInfo.Components
 
                 Orientation = LayoutOrientation.Vertical;
 
-                AddChild(new BoxContainer
+                AddChild(Tabs = new TabContainer());
+
+                InfoContainer = new BoxContainer
                 {
-                    Orientation = LayoutOrientation.Horizontal,
+                    Orientation = LayoutOrientation.Vertical,
                     Children =
                     {
-                        (SpriteView = new SpriteView { OverrideDirection = Direction.South, Scale = (2,2)}),
-                        new BoxContainer
-                        {
-                            Orientation = LayoutOrientation.Vertical,
-                            VerticalAlignment = VAlignment.Top,
-                            Children =
-                            {
-                                (NameLabel = new Label()),
-                                (SubText = new Label
-                                {
-                                    VerticalAlignment = VAlignment.Top,
-                                    StyleClasses = {StyleBase.StyleClassLabelSubText},
+                        (SpriteView = new SpriteView { OverrideDirection = Direction.South, Scale = (2, 2) }),
+                        (NameLabel = new RichTextLabel()
+                            { HorizontalAlignment = HAlignment.Center, Margin = new(0, 5, 0, 0) }),
+                        (AllegianceContainer = new BoxContainer() { Orientation = LayoutOrientation.Vertical }),
+                    },
+                    Margin = new(0, 0, 0, 15),
+                };
 
-                                })
-                            }
-                        }
-                    }
-                });
+                Tabs.AddChild(InfoContainer);
+                TabContainer.SetTabTitle(InfoContainer, "Info");
 
-                AddChild(new Label
-                {
-                    Text = Loc.GetString("character-info-objectives-label"),
-                    HorizontalAlignment = HAlignment.Center
-                });
                 ObjectivesContainer = new BoxContainer
                 {
                     Orientation = LayoutOrientation.Vertical
                 };
-                AddChild(ObjectivesContainer);
-
-                AddChild(new Placeholder()
-                {
-                    PlaceholderText = Loc.GetString("character-info-roles-antagonist-text")
-                });
+                Tabs.AddChild(ObjectivesContainer);
+                TabContainer.SetTabTitle(ObjectivesContainer, "Objectives");
             }
         }
     }

@@ -321,7 +321,7 @@ namespace Content.Client.Preferences.UI
             {
                 if(!job.SetPreference) { continue; }
 
-                foreach (var department in job.Departments)
+                foreach (var department in job.Allegiances)
                 {
                     if (!_jobCategories.TryGetValue(department, out var category))
                     {

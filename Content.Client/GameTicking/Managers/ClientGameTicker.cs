@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Content.Client.CharacterInfo.Components;
+using Content.Client.CharacterInterface;
 using Content.Client.Lobby;
 using Content.Client.RoundEnd;
 using Content.Client.Viewport;
@@ -9,6 +11,7 @@ using Content.Shared.Station;
 using JetBrains.Annotations;
 using Robust.Client.Graphics;
 using Robust.Client.State;
+using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Log;
 using Robust.Shared.Network;
@@ -21,6 +24,7 @@ namespace Content.Client.GameTicking.Managers
     public class ClientGameTicker : SharedGameTicker
     {
         [Dependency] private readonly IStateManager _stateManager = default!;
+        [Dependency] private readonly CharacterInterfaceSystem _characterInterfaceSystem = default!;
 
         [ViewVariables] private bool _initialized;
         private Dictionary<StationId, Dictionary<string, int>>  _jobsAvailable = new();
@@ -106,6 +110,7 @@ namespace Content.Client.GameTicking.Managers
         private void JoinGame(TickerJoinGameEvent message)
         {
             _stateManager.RequestStateChange<GameScreen>();
+            _characterInterfaceSystem.HandleOpenCharacterMenu();
         }
 
         private void LobbyCountdown(TickerLobbyCountdownEvent message)

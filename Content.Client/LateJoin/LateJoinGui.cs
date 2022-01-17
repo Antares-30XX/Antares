@@ -141,7 +141,7 @@ namespace Content.Client.LateJoin
                 foreach (var job in gameTicker.JobsAvailable[id].OrderBy(x => x.Key))
                 {
                     var prototype = _prototypeManager.Index<JobPrototype>(job.Key);
-                    foreach (var department in prototype.Departments)
+                    foreach (var department in prototype.Allegiances)
                     {
                         if (!_jobCategories.TryGetValue(id, out var _))
                             _jobCategories[id] = new Dictionary<string, BoxContainer>();

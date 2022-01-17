@@ -1,9 +1,10 @@
 - type: job
   id: ResearchDirector
   name: "research director"
+  description: This expedition would be nothing without you. Coordinate and focus the research efforts of the crew.
   head: true
   startingGear: ResearchDirectorGear
-  departments:
+  allegiances:
   - Command
   - Science
   icon: "ResearchDirector"

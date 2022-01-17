@@ -1,9 +1,10 @@
 - type: job
   id: Hydroponicist
   name: "hydroponicist"
+  description: Nature is a beatiful thing. Keep the flora on this steel hell alive and useful, and study alien lifeforms.
   startingGear: BotanistGear
-  departments:
-  - Civilian
+  allegiances:
+  - Science
   icon: "Botanist"
   supervisors: "the research director"
   access:

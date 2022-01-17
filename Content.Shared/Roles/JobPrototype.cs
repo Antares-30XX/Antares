@@ -5,6 +5,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager.Attributes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Set;
 using Robust.Shared.ViewVariables;
 
 namespace Content.Shared.Roles
@@ -27,8 +28,11 @@ namespace Content.Shared.Roles
         /// <summary>
         ///     The name of this job as displayed to players.
         /// </summary>
-        [DataField("name")]
+        [DataField("name", required: true)]
         public string Name { get; } = string.Empty;
+
+        [DataField("description", required: true)]
+        public string Description = default!;
 
         [DataField("joinNotifyCrew")]
         public bool JoinNotifyCrew { get; } = false;
@@ -57,8 +61,8 @@ namespace Content.Shared.Roles
         [DataField("special", serverOnly:true)]
         public JobSpecial[] Special { get; private set; } = Array.Empty<JobSpecial>();
 
-        [DataField("departments")]
-        public IReadOnlyCollection<string> Departments { get; } = Array.Empty<string>();
+        [DataField("allegiances", customTypeSerializer: typeof(PrototypeIdHashSetSerializer<AllegiancePrototype>))]
+        public HashSet<string> Allegiances { get; } = new();
 
         [DataField("access", customTypeSerializer: typeof(PrototypeIdListSerializer<AccessLevelPrototype>))]
         public IReadOnlyCollection<string> Access { get; } = Array.Empty<string>();

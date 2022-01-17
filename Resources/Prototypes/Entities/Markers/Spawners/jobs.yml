@@ -97,6 +97,18 @@
       - state: botanist
 
 - type: entity
+  id: SpawnPointLibrarian
+  parent: SpawnPointJobBase
+  name: librarian
+  components:
+  - type: SpawnPoint
+    job_id: Hydroponicist
+  - type: Sprite
+    layers:
+    - state: green
+    - state: botanist
+
+- type: entity
   id: SpawnPointClown
   parent: SpawnPointJobBase
   name: clown

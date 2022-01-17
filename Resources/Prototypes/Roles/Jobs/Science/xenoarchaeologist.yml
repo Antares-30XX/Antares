@@ -1,8 +1,9 @@
 - type: job
   id: Xenoarchaeologist
   name: "xenoarchaeologist"
+  description: Study alien artifacts and creatures for the sake of Antares--and your own curiosity.
   startingGear: ScientistGear
-  departments:
+  allegiances:
   - Science
   icon: "Scientist"
   supervisors: "the research director"

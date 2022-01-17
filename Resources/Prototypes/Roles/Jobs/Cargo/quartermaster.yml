@@ -2,8 +2,9 @@
   id: Quartermaster
   name: "quartermaster"
   startingGear: QuartermasterGear
-  departments:
-  - Cargo
+  description: Keep tabs on everything. Yell at your workers. Don't let anyone shady into the warehouse.
+  allegiances:
+  - Logistics
   icon: "QuarterMaster"
   supervisors: "the head of personnel"
   access:
