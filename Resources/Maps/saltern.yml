@@ -8779,6 +8779,8 @@ entities:
     type: Transform
   - index: 0
     type: MapGrid
+  - type: BecomesStation
+    id: Saltern
   - tiles:
       -16,-16: 0
       -16,-15: 0
