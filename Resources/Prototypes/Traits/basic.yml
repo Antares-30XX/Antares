@@ -2,13 +2,14 @@
   id: Normal0
   selections:
   - shoot people w/ gun
-  - you are very stupid
+  - do not shoot people w/ gun
+
 
 - type: traitPool
   id: Normal1
   selections:
-  - do not shoot people w/ gun
   - you are very smart
+  - you are very stupid
 
 - type: traitPool
   id: Rare0

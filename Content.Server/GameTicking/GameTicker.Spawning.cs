@@ -12,6 +12,7 @@ using Content.Server.Spawners.Components;
 using Content.Server.Speech.Components;
 using Content.Server.Station;
 using Content.Shared.Access.Components;
+using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.GameTicking;
 using Content.Shared.Ghost;
@@ -23,6 +24,7 @@ using Content.Shared.Species;
 using Content.Shared.Station;
 using Content.Shared.Traits;
 using Robust.Server.Player;
+using Robust.Shared.Configuration;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Localization;
@@ -40,6 +42,7 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly IdCardSystem _cardSystem = default!;
         [Dependency] private readonly InventorySystem _inventorySystem = default!;
         [Dependency] private readonly TraitSystem _traitSystem = default!;
+        [Dependency] private readonly IConfigurationManager _cfg = default!;
 
         /// <summary>
         /// Can't yet be removed because every test ever seems to depend on it. I'll make removing this a different PR.
@@ -136,8 +139,13 @@ namespace Content.Server.GameTicking
             {
                 _traitSystem.SelectTrait(),
                 _traitSystem.SelectTrait(variation: 1),
-                _traitSystem.SelectJobTrait(jobPrototype.ID)
             };
+
+            if (_robustRandom.Prob(_cfg.GetCVar(CCVars.JobTraitChance)))
+                traits.Add(_traitSystem.SelectJobTrait(jobPrototype.ID));
+
+            if (_robustRandom.Prob(_cfg.GetCVar(CCVars.RareTraitChance)))
+                traits.Add(_traitSystem.SelectTrait("Rare"));
 
             newMind.Traits = traits;
 

@@ -301,6 +301,16 @@ namespace Content.Shared.CCVar
             CVarDef.Create("ambience.lobbymusicenabled", true, CVar.ARCHIVE | CVar.CLIENTONLY);
 
         /*
+         * Trait stuff
+         */
+
+        public static readonly CVarDef<float> RareTraitChance =
+            CVarDef.Create("traits.rare_chance", 0.05f, CVar.SERVERONLY);
+
+        public static readonly CVarDef<float> JobTraitChance =
+            CVarDef.Create("traits.job_chance", 0.5f, CVar.SERVERONLY);
+
+        /*
          * HUD
          */
 
